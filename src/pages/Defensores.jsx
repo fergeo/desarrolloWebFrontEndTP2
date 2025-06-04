@@ -4,27 +4,39 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
-import { CerrarDetalle } from "../components/CerrarDetalle"; // ✅ Importar componente
+import { CerrarDetalle } from "../components/CerrarDetalle";
+import { FiltroJugadores } from "../components/Filtros/FiltroJugadores"; // ✅ Importar filtro
 import datosJSON from "../assets/data/jugadores.json";
 
 export function Defensores() {
     const [datos, setDatos] = useState([]);
     const [detalleAbierto, setDetalleAbierto] = useState(null);
+    const [filtro, setFiltro] = useState("");
+    const [criterio, setCriterio] = useState("nombre"); // "nombre" o "fecha"
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
-
         const defensores = datosJSON.filter((jugador) => jugador.posicion === "Defensor");
         setDatos(defensores);
     }, []);
 
-    const toggleDetalle = (id) => {
-        setDetalleAbierto(id);
-    };
+    const toggleDetalle = (id) => setDetalleAbierto(id);
+    const cerrarDetalle = () => setDetalleAbierto(null);
 
-    const cerrarDetalle = () => {
-        setDetalleAbierto(null);
-    };
+    const datosFiltrados = datos.filter((jugador) => {
+        const filtroLower = filtro.toLowerCase();
+
+        if (criterio === "nombre") {
+            const nombreCompleto = `${jugador.nombre} ${jugador.apellido}`.toLowerCase();
+            return nombreCompleto.includes(filtroLower);
+        }
+
+        if (criterio === "fecha") {
+            return jugador.jugo.toLowerCase().includes(filtroLower);
+        }
+
+        return true;
+    });
 
     const defensorSeleccionado = datos.find((j) => j.id === detalleAbierto);
 
@@ -32,19 +44,30 @@ export function Defensores() {
         <Container>
             <Title>Defensores</Title>
 
+            <FiltroJugadores
+                filtro={filtro}
+                setFiltro={setFiltro}
+                criterio={criterio}
+                setCriterio={setCriterio}
+            />
+
             {!detalleAbierto && (
                 <div data-aos="zoom-in">
                     <CardsWrapper>
-                        {datos.map((item) => (
-                            <Card
-                                key={item.id}
-                                imgsrc={getImageUrl(item.imagenSrc)}
-                                leyenda={"Jugó en: "}
-                                fecha={item.jugo}
-                                descripcion_breve={`${item.nombre} ${item.apellido}`}
-                                onVerDetalle={() => toggleDetalle(item.id)}
-                            />
-                        ))}
+                        {datosFiltrados.length > 0 ? (
+                            datosFiltrados.map((item) => (
+                                <Card
+                                    key={item.id}
+                                    imgsrc={getImageUrl(item.imagenSrc)}
+                                    leyenda={"Jugó en: "}
+                                    fecha={item.jugo}
+                                    descripcion_breve={`${item.nombre} ${item.apellido}`}
+                                    onVerDetalle={() => toggleDetalle(item.id)}
+                                />
+                            ))
+                        ) : (
+                            <NoResults>No se encontraron defensores con esos filtros.</NoResults>
+                        )}
                     </CardsWrapper>
                 </div>
             )}
@@ -58,7 +81,7 @@ export function Defensores() {
                         nombre={`${defensorSeleccionado.nombre} ${defensorSeleccionado.apellido}`}
                         detalle={defensorSeleccionado.descripcion}
                     />
-                    <CerrarDetalle onClick={cerrarDetalle} /> {/* ✅ Se reemplaza el botón */}
+                    <CerrarDetalle onClick={cerrarDetalle} />
                 </DetalleWrapper>
             )}
         </Container>
@@ -106,4 +129,10 @@ const DetalleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`;
+
+const NoResults = styled.p`
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 2rem;
 `;
