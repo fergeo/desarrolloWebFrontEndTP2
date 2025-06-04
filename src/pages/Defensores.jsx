@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import AOS from "aos"; // ✅ Importar AOS
-import "aos/dist/aos.css"; // ✅ Estilos AOS
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
+import { CerrarDetalle } from "../components/CerrarDetalle"; // ✅ Importar componente
 import datosJSON from "../assets/data/jugadores.json";
 
 export function Defensores() {
@@ -11,7 +12,7 @@ export function Defensores() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true }); // ✅ Inicializar AOS
+        AOS.init({ duration: 1000, once: true });
 
         const defensores = datosJSON.filter((jugador) => jugador.posicion === "Defensor");
         setDatos(defensores);
@@ -32,7 +33,7 @@ export function Defensores() {
             <Title>Defensores</Title>
 
             {!detalleAbierto && (
-                <div data-aos="zoom-in"> {/* ✅ Animación aquí */}
+                <div data-aos="zoom-in">
                     <CardsWrapper>
                         {datos.map((item) => (
                             <Card
@@ -57,7 +58,7 @@ export function Defensores() {
                         nombre={`${defensorSeleccionado.nombre} ${defensorSeleccionado.apellido}`}
                         detalle={defensorSeleccionado.descripcion}
                     />
-                    <CerrarButton onClick={cerrarDetalle}>Cerrar</CerrarButton>
+                    <CerrarDetalle onClick={cerrarDetalle} /> {/* ✅ Se reemplaza el botón */}
                 </DetalleWrapper>
             )}
         </Container>
@@ -105,20 +106,4 @@ const DetalleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
-
-const CerrarButton = styled.button`
-    margin-top: 1.5rem;
-    padding: 0.5rem 1.2rem;
-    font-size: 1rem;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #1565c0;
-    }
 `;

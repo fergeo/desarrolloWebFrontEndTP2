@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import AOS from "aos";              // Importar AOS
-import "aos/dist/aos.css";          // Importar estilos AOS
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
+import { CerrarDetalle } from "../components/CerrarDetalle"; // ✅ Importar componente reutilizable
 import datosJSON from "../assets/data/jugadores.json";
 
 export function Mediocampistas() {
@@ -11,9 +13,11 @@ export function Mediocampistas() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true });  // Inicializar AOS
+        AOS.init({ duration: 1000, once: true });
 
-        const mediocampistas = datosJSON.filter((jugador) => jugador.posicion === "Mediocampista");
+        const mediocampistas = datosJSON.filter(
+            (jugador) => jugador.posicion === "Mediocampista"
+        );
         setDatos(mediocampistas);
     }, []);
 
@@ -25,14 +29,16 @@ export function Mediocampistas() {
         setDetalleAbierto(null);
     };
 
-    const mediocampistaSeleccionado = datos.find((j) => j.id === detalleAbierto);
+    const mediocampistaSeleccionado = datos.find(
+        (j) => j.id === detalleAbierto
+    );
 
     return (
         <Container>
             <Title>Mediocampistas</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper data-aos="zoom-in"> {/* Animación zoom-in */}
+                <CardsWrapper data-aos="zoom-in">
                     {datos.map((item) => (
                         <Card
                             key={item.id}
@@ -55,16 +61,18 @@ export function Mediocampistas() {
                         nombre={`${mediocampistaSeleccionado.nombre} ${mediocampistaSeleccionado.apellido}`}
                         detalle={mediocampistaSeleccionado.descripcion}
                     />
-                    <CerrarButton onClick={cerrarDetalle}>Cerrar</CerrarButton>
+                    <CerrarDetalle onClick={cerrarDetalle} /> {/* ✅ Componente reutilizado */}
                 </DetalleWrapper>
             )}
         </Container>
     );
 }
 
-// Utilidad para cargar imágenes
 const getImageUrl = (imgName) => {
-    return new URL(`../assets/Jugadores/Mediocampistas/${imgName}`, import.meta.url).href;
+    return new URL(
+        `../assets/Jugadores/Mediocampistas/${imgName}`,
+        import.meta.url
+    ).href;
 };
 
 // Estilos
@@ -84,7 +92,6 @@ const Title = styled.h1`
     font-family: "Arial", sans-serif;
     color: white;
 
-    
     @media (min-width: 700px) and (max-width: 800px) {
         font-size: 3rem;
     }
@@ -94,7 +101,6 @@ const Title = styled.h1`
     }
 
     @media (max-width: 480px) {
-        font-size: 2rem;
         font-size: 2.5rem;
         margin: 0;
         margin-bottom: 2rem;
@@ -114,20 +120,4 @@ const DetalleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
-
-const CerrarButton = styled.button`
-    margin-top: 1.5rem;
-    padding: 0.5rem 1.2rem;
-    font-size: 1rem;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #1565c0;
-    }
 `;

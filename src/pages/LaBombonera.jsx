@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AOS from 'aos'; 
 import 'aos/dist/aos.css'; 
+
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
+import { CerrarDetalle } from "../components/CerrarDetalle"; // ✅ Componente reutilizable
 import datosJSON from "../assets/data/laBombonera.json";
 
 export function LaBombonera() {
@@ -11,11 +13,7 @@ export function LaBombonera() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
-        AOS.init({
-            duration: 1000, // Duración de la animación
-            once: true      // Solo se anima una vez al hacer scroll
-        });
-
+        AOS.init({ duration: 1000, once: true });
         setDatos(datosJSON);
     }, []);
 
@@ -53,7 +51,7 @@ export function LaBombonera() {
                         nombre={itemSeleccionado.descripcion_breve || "Detalle"}
                         detalle={itemSeleccionado.descripcion_larga}
                     />
-                    <CerrarButton onClick={() => setDetalleAbierto(null)}>Cerrar</CerrarButton>
+                    <CerrarDetalle onClick={() => setDetalleAbierto(null)} /> {/* ✅ Usar componente */}
                 </DetalleWrapper>
             )}
         </Container>
@@ -64,7 +62,7 @@ const getImageUrl = (imgName) => {
     return new URL(`../assets/LaBombonera/${imgName}`, import.meta.url).href;
 };
 
-// Estilos
+// Styled Components
 const Container = styled.div`
     text-align: center;
     padding: 2rem;
@@ -99,7 +97,7 @@ const Title = styled.h1`
 
 const CardsWrapper = styled.div.attrs(() => ({
     'data-aos': 'zoom-in'
-    }))`
+}))`
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
@@ -112,7 +110,6 @@ const CardsWrapper = styled.div.attrs(() => ({
     }
 `;
 
-
 const DetalleWrapper = styled.div`
     margin-top: 2rem;
     display: flex;
@@ -122,21 +119,5 @@ const DetalleWrapper = styled.div`
 
     @media (max-width: 768px) {
         margin-top: 1rem;
-    }
-`;
-
-const CerrarButton = styled.button`
-    margin-top: 1.5rem;
-    padding: 0.5rem 1.2rem;
-    font-size: 1rem;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #1565c0;
     }
 `;

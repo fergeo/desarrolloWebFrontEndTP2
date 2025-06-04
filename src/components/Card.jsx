@@ -29,9 +29,8 @@ const Section = styled.section`
     justify-content: center;
     align-items: flex-start;
     margin: 0 auto;
-    background-color: #0a0f2c; /* azul bien oscuro */
+    background-color: #0a0f2c;
 
-        /* Celulares */
     @media (max-width: 480px) {
         width: 73vw;
         height: 80vh;
@@ -58,22 +57,22 @@ const CardContainer = styled.div`
         box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.253);
     }
 
-    /* Laptop (de 768px a 1024px) */
+    &:hover img {
+        transform: scale(1.2); /* Agrandado del 20% */
+    }
+
     @media (max-width: 1024px) {
         width: 30vw;
         height: auto;
     }
 
-    /* Tablets */
     @media (max-width: 768px) {
         width: 80vw;
         height: auto;
     }
 
-    /* Celulares */
     @media (max-width: 480px) {
         width: 6vw;
-        
     }
 `;
 
@@ -86,8 +85,8 @@ const CardImage = styled.img`
     height: 52vh;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s ease;
 
-        /* Celulares */
     @media (max-width: 480px) {
         width: 60vw;
         height: auto;
@@ -111,6 +110,7 @@ const CardSubtitle = styled.h4`
 `;
 
 const CardButton = styled.a`
+    position: relative;
     display: inline-block;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
@@ -119,10 +119,27 @@ const CardButton = styled.a`
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.3s;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.3s ease;
 
     &:hover {
-        background: #ffd700;
         color: #0a0f2c;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: #ffd700;
+        z-index: -1;
+        transition: width 0.4s ease;
+    }
+
+    &:hover::before {
+        width: 100%;
     }
 `;

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import AOS from "aos";              // Importar AOS
-import "aos/dist/aos.css";          // Importar estilos AOS
+import AOS from "aos"; // Importar AOS
+import "aos/dist/aos.css"; // Estilos AOS
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
+import { CerrarDetalle } from "../components/CerrarDetalle"; // ✅ Importar componente reutilizable
 import datosJSON from "../assets/data/jugadores.json";
 
 export function Delanteros() {
@@ -11,7 +12,7 @@ export function Delanteros() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true });  // Inicializar AOS
+        AOS.init({ duration: 1000, once: true }); // Inicializar AOS
 
         const delanteros = datosJSON.filter((jugador) => jugador.posicion === "Delantero");
         setDatos(delanteros);
@@ -32,7 +33,7 @@ export function Delanteros() {
             <Title>Delanteros</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper data-aos="zoom-in"> {/* Animación zoom-in */}
+                <CardsWrapper data-aos="zoom-in">
                     {datos.map((item) => (
                         <Card
                             key={item.id}
@@ -55,7 +56,7 @@ export function Delanteros() {
                         nombre={`${delanteroSeleccionado.nombre} ${delanteroSeleccionado.apellido}`}
                         detalle={delanteroSeleccionado.descripcion}
                     />
-                    <CerrarButton onClick={cerrarDetalle}>Cerrar</CerrarButton>
+                    <CerrarDetalle onClick={cerrarDetalle} /> {/* ✅ Usar componente */}
                 </DetalleWrapper>
             )}
         </Container>
@@ -67,7 +68,7 @@ const getImageUrl = (imgName) => {
     return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
 };
 
-// Estilos
+// Styled Components
 const Container = styled.div`
     text-align: center;
     padding: 2rem;
@@ -103,20 +104,4 @@ const DetalleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
-
-const CerrarButton = styled.button`
-    margin-top: 1.5rem;
-    padding: 0.5rem 1.2rem;
-    font-size: 1rem;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #1565c0;
-    }
 `;

@@ -7,9 +7,9 @@ export const CerrarDetalle = ({ onClick }) => {
 
 const StyledButton = styled.button`
     margin-top: 1.5rem;
-    padding: 0.55rem 1.32rem;
+    padding: 0.55rem 1.32rem; /* 10% más grande */
     font-size: 1.1rem;
-    background-color: #082568;
+    background-color: #082568; /* Azul más oscuro */
     color: white;
     border: none;
     border-radius: 0.5rem;
@@ -26,13 +26,13 @@ const StyledButton = styled.button`
         right: 0;
         bottom: 0;
         left: 100%;
-        background-color: #1565c0;
+        background-color: #1565c0; /* Azul de relleno */
         transition: left 0.4s ease;
         z-index: -1;
     }
 
     &:hover::before {
-        left: 0;
+        left: 0; /* Rellena de derecha a izquierda */
     }
 
     &:hover {

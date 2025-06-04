@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion'; // ✅ Importar motion
 
 export function Wheater() {
     const [forecast, setForecast] = useState(null);
@@ -29,7 +30,11 @@ export function Wheater() {
     return (
         <>
             <Title>Clima Diario en Buenos Aires</Title>
-            <Container>
+            <MotionContainer
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            >
                 <StyledList>
                     {forecast.time.map((date, index) => (
                         <StyledListItem key={date}>
@@ -37,14 +42,13 @@ export function Wheater() {
                         </StyledListItem>
                     ))}
                 </StyledList>
-            </Container>
+            </MotionContainer>
         </>
     );
 }
 
 // Estilos
-
-const Container = styled.div`
+const MotionContainer = styled(motion.div)`
     width: 100%;
     max-width: 800px;
     min-height: 100vh;
