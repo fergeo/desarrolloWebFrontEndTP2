@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AOS from "aos";              // Importar AOS
+import "aos/dist/aos.css";          // Importar estilos AOS
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import datosJSON from "../assets/data/jugadores.json";
@@ -9,6 +11,8 @@ export function Delanteros() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
+        AOS.init({ duration: 1000, once: true });  // Inicializar AOS
+
         const delanteros = datosJSON.filter((jugador) => jugador.posicion === "Delantero");
         setDatos(delanteros);
     }, []);
@@ -28,7 +32,7 @@ export function Delanteros() {
             <Title>Delanteros</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper>
+                <CardsWrapper data-aos="zoom-in"> {/* Animación zoom-in */}
                     {datos.map((item) => (
                         <Card
                             key={item.id}

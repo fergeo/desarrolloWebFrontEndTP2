@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AOS from "aos";              // Importar AOS
+import "aos/dist/aos.css";          // Importar estilos AOS
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import datosJSON from "../assets/data/jugadores.json";
@@ -9,6 +11,8 @@ export function Mediocampistas() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
+        AOS.init({ duration: 1000, once: true });  // Inicializar AOS
+
         const mediocampistas = datosJSON.filter((jugador) => jugador.posicion === "Mediocampista");
         setDatos(mediocampistas);
     }, []);
@@ -28,7 +32,7 @@ export function Mediocampistas() {
             <Title>Mediocampistas</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper>
+                <CardsWrapper data-aos="zoom-in"> {/* Animación zoom-in */}
                     {datos.map((item) => (
                         <Card
                             key={item.id}
@@ -95,10 +99,7 @@ const Title = styled.h1`
         margin: 0;
         margin-bottom: 2rem;
     }
-
-
 `;
-
 
 const CardsWrapper = styled.div`
     display: flex;

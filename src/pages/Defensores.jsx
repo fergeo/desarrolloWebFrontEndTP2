@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AOS from "aos"; // ✅ Importar AOS
+import "aos/dist/aos.css"; // ✅ Estilos AOS
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import datosJSON from "../assets/data/jugadores.json";
@@ -9,6 +11,8 @@ export function Defensores() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
+        AOS.init({ duration: 1000, once: true }); // ✅ Inicializar AOS
+
         const defensores = datosJSON.filter((jugador) => jugador.posicion === "Defensor");
         setDatos(defensores);
     }, []);
@@ -28,18 +32,20 @@ export function Defensores() {
             <Title>Defensores</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper>
-                    {datos.map((item) => (
-                        <Card
-                            key={item.id}
-                            imgsrc={getImageUrl(item.imagenSrc)}
-                            leyenda={"Jugó en: "}
-                            fecha={item.jugo}
-                            descripcion_breve={`${item.nombre} ${item.apellido}`}
-                            onVerDetalle={() => toggleDetalle(item.id)}
-                        />
-                    ))}
-                </CardsWrapper>
+                <div data-aos="zoom-in"> {/* ✅ Animación aquí */}
+                    <CardsWrapper>
+                        {datos.map((item) => (
+                            <Card
+                                key={item.id}
+                                imgsrc={getImageUrl(item.imagenSrc)}
+                                leyenda={"Jugó en: "}
+                                fecha={item.jugo}
+                                descripcion_breve={`${item.nombre} ${item.apellido}`}
+                                onVerDetalle={() => toggleDetalle(item.id)}
+                            />
+                        ))}
+                    </CardsWrapper>
+                </div>
             )}
 
             {defensorSeleccionado && (

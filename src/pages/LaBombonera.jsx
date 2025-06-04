@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AOS from 'aos'; 
+import 'aos/dist/aos.css'; 
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import datosJSON from "../assets/data/laBombonera.json";
@@ -9,6 +11,11 @@ export function LaBombonera() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
 
     useEffect(() => {
+        AOS.init({
+            duration: 1000, // Duración de la animación
+            once: true      // Solo se anima una vez al hacer scroll
+        });
+
         setDatos(datosJSON);
     }, []);
 
@@ -23,7 +30,7 @@ export function LaBombonera() {
             <Title>La Bombonera</Title>
 
             {!detalleAbierto && (
-                <CardsWrapper>
+                <CardsWrapper data-aos="zoom-in">
                     {datos.map((item) => (
                         <Card
                             key={item.id}
@@ -90,7 +97,9 @@ const Title = styled.h1`
     }
 `;
 
-const CardsWrapper = styled.div`
+const CardsWrapper = styled.div.attrs(() => ({
+    'data-aos': 'zoom-in'
+    }))`
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
@@ -102,6 +111,7 @@ const CardsWrapper = styled.div`
         align-items: center;
     }
 `;
+
 
 const DetalleWrapper = styled.div`
     margin-top: 2rem;
