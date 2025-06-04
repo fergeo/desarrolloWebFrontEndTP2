@@ -1,7 +1,9 @@
 # Desarrollo Trabajo Práctico N°2
 
 ● Mejora de la Interfaz: Animaciones Suaves
-○ Transiciones al cargar tarjetas y entre páginas.
+  ○ Transiciones al cargar tarjetas y entre páginas.
+  - [X] Cuamdp se cargam las tarjetas em las secciones: La Bombonera, Arqueros, Defensores, Mediocampistas y Deleanteros.
+        Se agrego la animación de zoom-in de aos.
 ○ Efectos hover en elementos interactivos (tarjetas, botones).
 ○ Herramientas: CSS puro o Animate.css. 
 
