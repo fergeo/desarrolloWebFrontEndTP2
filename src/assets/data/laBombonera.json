@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "fecha": "1940-05-25",
+        "imgsrc": "labombonera_inauguracion.jpg",
+        "descripcion_breve": "Inauguración de La Bombonera",
+        "descripcion_larga": "La Bombonera fue inaugurada el 25 de mayo de 1940 con un partido amistoso frente a San Lorenzo. Su estructura original tenía tres tribunas y una capacidad para 45.000 personas."
+    },
+    {
+        "id": 3,
+        "fecha": "2000-12-17",
+        "imgsrc": "labombonera_bicampeon.jpg",
+        "descripcion_breve": "Boca celebra el bicampeonato",
+        "descripcion_larga": "Boca Juniors festeja el bicampeonato local e internacional (Copa Libertadores e Intercontinental) con un estadio completamente colmado de hinchas celebrando uno de los años más gloriosos del club."
+    },
+        {
+        "id": 2,
+        "fecha": "2020-11-29",
+        "imgsrc": "homenajesBomboneraMaradona.jpg",
+        "descripcion_breve": "Todos los homenajes a Maradona en la Bombonera",
+        "descripcion_larga": "Boca vivió un domingo muy especial para recordar a Diego. En Olé te mostramos cada gesto y cada recuerdo para el Diez en su Templo. Mucha emoción."
+    },
+    {
+        "id": 4,
+        "fecha": "2022-06-05",
+        "imgsrc": "anochecerBombonera.jpg",
+        "descripcion_breve": "La Bombonera en la actualidad",
+        "descripcion_larga": "Vista aérea de La Bombonera en 2022, mostrando sus reformas, colores vibrantes y la cercanía única entre el público y el campo de juego. Sigue siendo uno de los estadios más temidos del continente."
+    }
+]

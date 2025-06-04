@@ -1,0 +1,146 @@
+[
+    {
+        "id": 1,
+        "nombre": "Antonio",
+        "apellido": "Roma",
+        "jugo": "1955-1967",
+        "posicion": "Arquero",
+        "descripcion": "Apodado 'Tarzan', fue un arquero clave en la historia de Boca, famoso por su agilidad y liderazgo.",
+        "imagenSrc": "antonioRoma.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "Hugo Orlando",
+        "apellido": "Gatti",
+        "jugo": "1968-1988",
+        "posicion": "Arquero",
+        "descripcion": "Conocido como 'El Loco', fue uno de los arqueros más carismáticos y revolucionarios en la historia del fútbol argentino.",
+        "imagenSrc": "gatti.jpg"
+    },
+    {
+        "id": 3,
+        "nombre": "Fernando",
+        "apellido": "Navarro Montoya",
+        "jugo": "1983-1997",
+        "posicion": "Arquero",
+        "descripcion": "Apodado 'Chito', fue un arquero emblemático de Boca Juniors en los 80 y 90, reconocido por su seguridad y liderazgo.",
+        "imagenSrc": "navarroMontoya.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "Óscar",
+        "apellido": "Córdoba",
+        "jugo": "1997-2002, 2004",
+        "posicion": "Arquero",
+        "descripcion": "Figura fundamental en la obtención de tres Copas Libertadores y una Intercontinental con Boca.",
+        "imagenSrc": "oscarCordoba.jpg"
+    },
+    {
+        "id": 5,
+        "nombre": "Roberto",
+        "apellido": "Mouzo",
+        "jugo": "1971-1984",
+        "posicion": "Defensor",
+        "descripcion": "Posicion fue de Defensor central. Es el jugador con más partidos disputados en la historia de Boca Juniors. Famoso por su solidez defensiva y liderazgo durante más de una década.",
+        "imagenSrc": "robertoMouzo.jpg"
+    },
+    {
+        "id": 6,
+        "nombre": "Silvio",
+        "apellido": "Marzolini",
+        "jugo": "1960-1972",
+        "posicion": "Defensor",
+        "descripcion": "Jugo en la posición de Lateral izquierdo. Considerado uno de los mejores laterales izquierdos del fútbol argentino. Brilló tanto en Boca como en la Selección Argentina.",
+        "imagenSrc": "silvioMarzolini.jpg"
+    },
+    {
+        "id": 7,
+        "nombre": "Enrique",
+        "apellido": "Hrabina",
+        "jugo": "1985-1992",
+        "posicion": "Defensor",
+        "descripcion": "Jugo en la posición Defensor (lateral o central). Jugador muy querido por la hinchada xeneize por su entrega, coraje y amor por la camiseta. Jugó siete años en el club sin lograr títulos, pero se ganó un lugar en la historia por su carácter.",
+        "imagenSrc": "enriqueHrabina.jpg"
+    },
+    {
+        "id": 8,
+        "nombre": "Rolando",
+        "apellido": "Schiavi",
+        "jugo": "2001-2005, 2011-2012",
+        "posicion": "Defensor",
+        "descripcion": "Jugo como Defensor central. Zaguero fuerte y experimentado. Campeón de la Copa Libertadores en 2003 y clave en el Apertura 2011. Reconocido por su juego aéreo y liderazgo defensivo.",
+        "imagenSrc": "rolandoSchiavi.jpg"
+    },
+    {
+        "id": 9,
+        "nombre": "Juan Román",
+        "apellido": "Riquelme",
+        "jugo": "1996–2002, 2007–2012, 2013–2014",
+        "posicion": "Mediocampista",
+        "descripcion": "Jugo como Mediocampista ofensivo (enganche). Máximo ídolo de Boca Juniors. Cerebro del equipo, dueño del ritmo de juego. Brillante técnicamente y decisivo en los momentos clave.",
+        "imagenSrc": "JuanRomanRiquelme.jpg"
+    },
+    {
+        "id": 10,
+        "nombre": "Sebastián",
+        "apellido": "Battaglia",
+        "jugo": "1998–2003, 2005–2013",
+        "posicion": "Mediocampista",
+        "descripcion": "Jugo como Mediocampista central / mixto. Jugador más ganador de la historia del club. Volante de gran despliegue y marca. Fundamental en la era dorada de Carlos Bianchi.",
+        "imagenSrc": "sebstianBataglia.jpg"
+    },
+    {
+        "id": 11,
+        "nombre": "Alberto",
+        "apellido": "Márcico",
+        "jugo": "1986–1994",
+        "posicion": "Mediocampista",
+        "descripcion": "Jugo como Mediocampista ofensivo / enganche. Alberto Márcico fue un mediocampista ofensivo y enganche que dejó una marca importante en Boca Juniors entre 1986 y 1994. Destacado por su gran técnica, visión de juego y capacidad para asistir a sus compañeros, fue el motor creativo del equipo en una época clave. Su elegancia con la pelota, precisión en los pases y habilidad para romper líneas defensivas lo convirtieron en uno de los mediocampistas más talentosos de su generación. Muy querido por los hinchas, se convirtió en un símbolo de creatividad y entrega en la mitad de la cancha.",
+        "imagenSrc": "albertoMarcico.jpg"
+    },
+    {
+        "id": 12,
+        "nombre": "Diego Armando",
+        "apellido": "Maradona",
+        "jugo": "1981–1982, 1995–1997",
+        "posicion": "Mediocampista",
+        "descripcion": "Jugo como Mediocampista ofensivo (enganche). Uno de los mayores íconos del fútbol mundial. En Boca deslumbró como enganche, siendo el eje creativo del equipo y figura indiscutible. Su amor por el club lo convirtió en leyenda.",
+        "imagenSrc": "diegoMaradona.jpg"
+    },
+    {
+        "id": 13,
+        "nombre": "Martín",
+        "apellido": "Palermo",
+        "jugo": "1997–2000, 2004–2011",
+        "posicion": "Delantero",
+        "descripcion": "Jugo como Delantero centro. Máximo goleador histórico de Boca Juniors. Ídolo absoluto por su olfato goleador, coraje y momentos inolvidables como los goles en finales.",
+        "imagenSrc": "martinPalermo.jpg"
+    },
+    {
+        "id": 14,
+        "nombre": "Guillermo",
+        "apellido": "Barros Schelotto",
+        "jugo": "1997–2007",
+        "posicion": "Delantero",
+        "descripcion": "Jugo como Delantero / extremo derecho. Uno de los máximos ídolos del club. Velocidad, picardía y gran capacidad para asistir o convertir goles. Clave en las Copas Libertadores ganadas.",
+        "imagenSrc": "guillermoBarrosSchelotto.jpg"
+    },
+    {
+        "id": 15,
+        "nombre": "Carlos",
+        "apellido": "Tevez",
+        "jugo": "2001–2004, 2015–2016, 2018–2021",
+        "posicion": "Delantero",
+        "descripcion": "Jugo como Delantero / segunda punta. Surgido de las inferiores, ídolo moderno. Brillante en la Libertadores 2003, y regresó en varias etapas para aportar liderazgo y goles.",
+        "imagenSrc": "carlosTevez.jpg"
+    },
+    {
+        "id": 16,
+        "nombre": "Sergio",
+        "apellido": "Martínez",
+        "jugo": "1992–1997",
+        "posicion": "Delantero",
+        "descripcion": "Jugo como Delantero centro. Conocido como 'Manteca', fue un goleador clave en Boca Juniors durante los años 90. Destacado por su potencia, definición letal y entrega en cada partido. Muy querido por los hinchas por su pasión y capacidad goleadora.",
+        "imagenSrc": "sergioMartinez.jpg"
+    }
+]

@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1,
+        "dia": "Día 1",
+        "detalle": [
+            "Armado del Trello para detallar las tareas a realizar.\nhttps://trello.com/b/UjIswTCj/trabajo-practico-1",
+            "Se detallaron algunas tareas."
+        ]
+    },
+    {
+        "id": 2,
+        "dia": "Día 2",
+        "detalle": [
+            "Se agregaron tareas al Backlog del Trello.",
+            "Creación del repositorio en GitHub.\nE:\\desarrolloWebFrontEndTP1\ndesarrolloWebFrontEndTP1\nhttps://github.com/fergeo/desarrolloWebFrontEndTP1",
+            "Edición del ReadMe de GitHub.",
+            "Replicar el repositorio en forma local."
+        ]
+    },
+    {
+        "id": 3,
+        "dia": "Día 3",
+        "detalle": [
+            "Se tomaron dos días para tener andando correctamente sin errores el Sidebar."
+        ]
+    },
+    {
+        "id": 4,
+        "dia": "Día 4",
+        "detalle": [
+            "Se desarrolló el Home.",
+            "Se creó el JSON con 4 datos e imágenes de La Bombonera.",
+            "Se desarrolló la página La Bombonera.",
+            "Se empezó a armar el JSON de jugadores con arqueros."
+        ]
+    },
+    {
+        "id": 5,
+        "dia": "Día 5",
+        "detalle": [
+            "Poner las imágenes de cada sección.",
+            "Se realizaron las secciones: defensores, mediocampistas, delanteros, juega y bitácora.",
+            "Deploy en Vercel:\nLink: https://desarrollo-web-front-end-tp-1.vercel.app/"
+        ]
+    },
+    {
+        "id": 6,
+        "dia": "Día 6",
+        "detalle": [
+            "Correciones varias.",
+            "Se da estilo a la Bitacora y se la actualiza.",
+            "Se consume una API de tiempo para una semana de Buenos Aires."
+        ]
+    },
+    {
+        "id": 7,
+        "dia": "Día 7",
+        "detalle": [
+            "Generar json de la bitacora.",
+            "Generar un componente Dia para utilizar en la bitacora.",
+            "Aplicar el componete en la pagina Bitacora.",
+            "Primer testeo de la aplicación."
+        ]
+    },
+    {
+        "id": 8,
+        "dia": "Día 8",
+        "detalle": [
+            "Correcciones a lo reportado en el test."
+        ]
+    },
+    {
+        "id": 9,
+        "dia": "Día 9",
+        "detalle": [
+            "Correciones varias en tamaño y disponibilidad de las cards.",
+            "Correciones en el home",
+            "Correciones en el tamaño del logo cuando el sidebar esta abierto y cerrado",
+            "Correción en el tamaño de la letra del sidebar",
+            "Inconveniente en la imagen del icono de la pagina que se debio dejar en sin-titulo, por que no tomaba otro."
+        ]
+    },
+        {
+        "id": 10,
+        "dia": "Día 10",
+        "detalle": [
+            "A pesar de que de haber trabajado el desarrollo solo, se conto ademas del testo unitario que hace uno, se conto con un testeo exterior es mas siendo intragupo e intracomisión.",
+            "A diferencia de lo solicitado que una sección sea solamente que donde se recupera datos de un JSON, se realizo para recuperar los datos de los jugadores, su detalle y el detalle de la bitacora.",
+            "El home puede que sea algo diferente que se utiliza un compoente que recupera imagenes, y el uso de tarjetas se da uso en las secciones de cada posiciones de los jugadores y del estadio.",
+            "El sidebar se abre y se cierra para desktop, pero para celular solo se deja visible los iconos de cada sección."
+        ]
+    }
+]
