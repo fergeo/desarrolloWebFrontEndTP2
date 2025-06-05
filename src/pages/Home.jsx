@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { EscudoCamista } from "../components/Home/EscudoCamiseta";
+import { ImageCarousel } from "../components/ImageCarousel";
 import leftImage1 from "../assets/Home/left1.png";
 import rightImage1 from "../assets/Home/right1.jpg";
 import leftImage2 from "../assets/Home/left2.jpg";
@@ -9,13 +10,8 @@ import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
   const allSidebarKeys = [
-    "LaBombonera",
-    "Arqueros",
-    "Defensores",
-    "Mediocampistas",
-    "Delanteros",
-    "Clima en Bs. As.",
-    "Bitacora",
+    "LaBombonera", "Arqueros", "Defensores",
+    "Mediocampistas", "Delanteros", "Clima en Bs. As.", "Bitacora"
   ];
 
   const normalizedLinks = allSidebarKeys.reduce((acc, key) => {
@@ -41,10 +37,7 @@ export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
         <ControlPanel>
           <h2>Mostrar / Ocultar botones del Sidebar</h2>
           <CheckboxesContainer>
-            <label>
-              <input type="checkbox" checked disabled />
-              Home
-            </label>
+            <label><input type="checkbox" checked disabled />Home</label>
             {allSidebarKeys.map((key) => (
               <label key={key}>
                 <input
@@ -58,6 +51,10 @@ export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
             ))}
           </CheckboxesContainer>
         </ControlPanel>
+
+        <CarouselWrapper>
+          <ImageCarousel />
+        </CarouselWrapper>
 
         <RedesSociales>
           <IconLink
@@ -90,7 +87,7 @@ export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
   );
 }
 
-// Estilos
+// ESTILOS
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -109,10 +106,9 @@ const Container = styled.div`
   text-align: center;
   width: 100%;
   max-width: 100%;
-  box-sizing: border-box;
   min-height: 100vh;
   padding: ${(props) => (props.$sidebarOpen ? "3rem 1rem" : "2rem 1rem")};
-  transition: padding 0.3s ease;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h1`
@@ -121,10 +117,6 @@ const Title = styled.h1`
 
   @media (max-width: 480px) {
     font-size: 2.5rem;
-  }
-
-  @media (min-width: 1025px) {
-    font-size: 3rem;
   }
 `;
 
@@ -136,11 +128,6 @@ const ControlPanel = styled.div`
   border-radius: 8px;
   width: 100%;
   max-width: 600px;
-  box-sizing: border-box;
-
-  h2 {
-    margin-bottom: 1rem;
-  }
 `;
 
 const CheckboxesContainer = styled.div`
@@ -165,9 +152,21 @@ const CheckboxesContainer = styled.div`
   }
 `;
 
-// 🔽 Redes Sociales
-const RedesSociales = styled.div`
+const CarouselWrapper = styled.div`
+  width: 100%;
+  max-width: 900px;
   margin-top: 4rem;
+  padding: 2rem;
+  background-color: #000c2d;
+  border-radius: 12px;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const RedesSociales = styled.div`
+  margin-top: 3rem;
   display: flex;
   gap: 2rem;
 `;

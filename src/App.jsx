@@ -4,6 +4,8 @@ import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import { Sidebar } from "./components/Sidebar";
 import { Light, Dark } from "./styles/Themes";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 export const ThemeContext = React.createContext(null);
 
