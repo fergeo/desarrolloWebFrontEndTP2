@@ -103,13 +103,17 @@ const CarouselWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: auto;
+  width: 60%; /* achica la imagen un 40% */
+  height: 90px; /* alto fijo */
+  object-fit: cover; /* recorta sin deformar */
   border-radius: 10px;
   cursor: pointer;
+  margin: 0 auto; /* centrar dentro del slide */
+  display: block;
   transition: transform 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.1);
   }
 `;
+
