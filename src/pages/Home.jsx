@@ -5,9 +5,9 @@ import leftImage1 from "../assets/Home/left1.png";
 import rightImage1 from "../assets/Home/right1.jpg";
 import leftImage2 from "../assets/Home/left2.jpg";
 import rightImage2 from "../assets/Home/right2.jpg";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
-  // Claves que deben coincidir exactamente con los labels del Sidebar
   const allSidebarKeys = [
     "LaBombonera",
     "Arqueros",
@@ -18,13 +18,11 @@ export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
     "Bitacora",
   ];
 
-  // Asegurarse de que visibleLinks tenga todas las claves necesarias
   const normalizedLinks = allSidebarKeys.reduce((acc, key) => {
     acc[key] = visibleLinks[key] ?? true;
     return acc;
   }, {});
 
-  // Manejador del checkbox
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setVisibleLinks((prev) => ({
@@ -60,11 +58,39 @@ export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
             ))}
           </CheckboxesContainer>
         </ControlPanel>
+
+        <RedesSociales>
+          <IconLink
+            href="https://github.com/fergeo"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub"
+          >
+            <FaGithub />
+          </IconLink>
+          <IconLink
+            href="https://www.linkedin.com/in/fernandoespindolaomastott/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn"
+          >
+            <FaLinkedin />
+          </IconLink>
+          <IconLink
+            href="https://www.instagram.com/fernando_espindola_o/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Instagram"
+          >
+            <FaInstagram />
+          </IconLink>
+        </RedesSociales>
       </Container>
     </Wrapper>
   );
 }
 
+// Estilos
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -136,5 +162,22 @@ const CheckboxesContainer = styled.div`
     input:disabled {
       cursor: not-allowed;
     }
+  }
+`;
+
+// 🔽 Redes Sociales
+const RedesSociales = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  gap: 2rem;
+`;
+
+const IconLink = styled.a`
+  color: white;
+  font-size: 2.5rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.3);
   }
 `;
