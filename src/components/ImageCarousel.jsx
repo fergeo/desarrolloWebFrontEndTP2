@@ -12,19 +12,20 @@ export function ImageCarousel() {
 
   // Función para obtener imagen según tipo
   const getImageUrl = (imgName, type) => {
-    switch (type) {
+    switch (type.toLowerCase()) {
       case "bombonera":
         return new URL(`../assets/LaBombonera/${imgName}`, import.meta.url).href;
-      case "defensores":
-        return new URL(`../assets/Jugadores/Defensores/${imgName}`, import.meta.url).href;
-      case "delanteros":
-        return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
-      case "mediocampistas":
-        return new URL(`../assets/Jugadores/Mediocampistas/${imgName}`, import.meta.url).href;
-      case "arqueros":
+      case "arquero":
         return new URL(`../assets/Jugadores/Arqueros/${imgName}`, import.meta.url).href;
+      case "defensor":
+        return new URL(`../assets/Jugadores/Defensores/${imgName}`, import.meta.url).href;
+      case "delantero":
+        return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
+      case "mediocampista":
+        return new URL(`../assets/Jugadores/Mediocampistas/${imgName}`, import.meta.url).href;
       default:
-        return ""; // en caso de error
+        console.warn(`Posición desconocida: ${type}`);
+        return ""; // o una imagen por defecto
     }
   };
 
@@ -34,7 +35,7 @@ export function ImageCarousel() {
       img: getImageUrl(item.imgsrc, "bombonera"),
     })),
     ...jugadoresData.map((jugador) => {
-      const posicion = jugador.posicion.toLowerCase(); // ej: "defensores"
+      const posicion = jugador.posicion.toLowerCase(); // Ej: "defensores"
       return {
         type: "jugador",
         img: getImageUrl(jugador.imagenSrc, posicion),
