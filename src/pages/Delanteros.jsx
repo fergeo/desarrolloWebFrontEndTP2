@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import { CerrarDetalle } from "../components/CerrarDetalle";
-import { FiltroJugadores } from "../components/Filtros/FiltroJugadores"; // ✅ Importar filtro
+import { FiltroJugadores } from "../components/Filtros/FiltroJugadores";
 import datosJSON from "../assets/data/jugadores.json";
 
 export function Delanteros() {
@@ -45,6 +45,16 @@ export function Delanteros() {
     });
 
     const delanteroSeleccionado = datos.find((j) => j.id === detalleAbierto);
+
+    // Función para cargar imágenes de copas (usar en FichaDetalle)
+    const getCopaUrl = (copa) => {
+        return new URL(`../assets/copas/${copa}`, import.meta.url).href;
+    };
+
+    // Función para cargar imágenes de jugadores
+    const getImageUrl = (imgName) => {
+        return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
+    };
 
     return (
         <Container>
@@ -86,6 +96,9 @@ export function Delanteros() {
                         fecha={delanteroSeleccionado.jugo}
                         nombre={`${delanteroSeleccionado.nombre} ${delanteroSeleccionado.apellido}`}
                         detalle={delanteroSeleccionado.descripcion}
+                        habilidades={delanteroSeleccionado.habilidades}
+                        copasGanadas={delanteroSeleccionado.copasGanadas}
+                        getCopaUrl={getCopaUrl}
                     />
                     <CerrarDetalle onClick={cerrarDetalle} />
                 </DetalleWrapper>
@@ -93,11 +106,6 @@ export function Delanteros() {
         </Container>
     );
 }
-
-// Utilidad para cargar imágenes
-const getImageUrl = (imgName) => {
-    return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
-};
 
 // Styled Components
 const Container = styled.div`

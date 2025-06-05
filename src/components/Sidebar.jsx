@@ -15,7 +15,7 @@ import delantero from "../assets/iconos/delantero.jpg";
 import clima from "../assets/iconos/clima.jpg";
 import bitacora from "../assets/iconos/bitacora.png";
 
-export function Sidebar({ sidebarOpen, setSidebarOpen }) {
+export function Sidebar({ sidebarOpen, setSidebarOpen, visibleLinks }) {
   const { setTheme, theme } = useContext(ThemeContext);
 
   const CambiarTheme = () => {
@@ -60,16 +60,18 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
       </div>
 
-      {linksArray.map(({ icon, label, to }) => (
-        <div className="LinkContainer" key={label}>
-          <NavLink
-            to={to}
-            className={({ isActive }) => `Links${isActive ? " active" : ""}`}
-          >
-            <div className="Linkicon">{icon}</div>
-            <span className="link-label">{label}</span>
-          </NavLink>
-        </div>
+      {linksArray
+        .filter(({ id }) => id === "Home" || visibleLinks[id])
+        .map(({ icon, label, to }) => (
+          <div className="LinkContainer" key={label}>
+            <NavLink
+              to={to}
+              className={({ isActive }) => `Links${isActive ? " active" : ""}`}
+            >
+              <div className="Linkicon">{icon}</div>
+              <span className="link-label">{label}</span>
+            </NavLink>
+          </div>
       ))}
 
       <Divider />
@@ -92,23 +94,27 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   );
 }
 
+// linksArray es el array completo de todas las opciones
 const linksArray = [
-  { label: "Home", icon: <AiOutlineHome />, to: "/" },
-  { label: "La Bombonera", icon: <img src={laBombonera} alt="Ir a La Bombonera" />, to: "/laBombonera" },
-  { label: "Arqueros", icon: <img src={arquero} alt="Ir a Arqueros" />, to: "/arqueros" },
-  { label: "Defensores", icon: <img src={defensor} alt="Ir a Defensores" />, to: "/defensores" },
-  { label: "Mediocampistas", icon: <img src={mediocampista} alt="Ir a Mediocampistas" />, to: "/mediocampistas" },
-  { label: "Delanteros", icon: <img src={delantero} alt="Ir a Delanteros" />, to: "/delanteros" },
-  { label: "Clima en Bs. As.", icon: <img src={clima} alt="Ver clima en Buenos Aires" />, to: "/wheater" },
-  { label: "Bitacora", icon: <img src={bitacora} alt="Ver Bitácora" />, to: "/bitacora" },
+  { id: "Home", label: "Home", icon: <AiOutlineHome />, to: "/" },
+  { id: "LaBombonera", label: "La Bombonera", icon: <img src={laBombonera} alt="Ir a La Bombonera" />, to: "/laBombonera" },
+  { id: "Arqueros", label: "Arqueros", icon: <img src={arquero} alt="Ir a Arqueros" />, to: "/arqueros" },
+  { id: "Defensores", label: "Defensores", icon: <img src={defensor} alt="Ir a Defensores" />, to: "/defensores" },
+  { id: "Mediocampistas", label: "Mediocampistas", icon: <img src={mediocampista} alt="Ir a Mediocampistas" />, to: "/mediocampistas" },
+  { id: "Delanteros", label: "Delanteros", icon: <img src={delantero} alt="Ir a Delanteros" />, to: "/delanteros" },
+  { id: "Clima", label: "Clima en Bs. As.", icon: <img src={clima} alt="Ver clima en Buenos Aires" />, to: "/wheater" },
+  { id: "Bitacora", label: "Bitacora", icon: <img src={bitacora} alt="Ver Bitácora" />, to: "/bitacora" },
 ];
+
 
 const Container = styled.div`
   color: ${(props) => props.theme.text};
   background: ${(props) => props.theme.bg};
+
   position: sticky;
   top: 0;
-  height: 100%;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   width: ${(props) => (props.$isOpen ? "280px" : "70px")};

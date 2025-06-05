@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
 import { CerrarDetalle } from "../components/CerrarDetalle";
-import { FiltroJugadores } from "../components/Filtros/FiltroJugadores"; // ✅ Importado
+import { FiltroJugadores } from "../components/Filtros/FiltroJugadores";
 
 import datosJSON from "../assets/data/jugadores.json";
 
@@ -52,6 +52,19 @@ export function Mediocampistas() {
         (j) => j.id === detalleAbierto
     );
 
+    // Función para cargar imágenes de copas (pasar a FichaDetalle)
+    const getCopaUrl = (copa) => {
+        return new URL(`../assets/copas/${copa}`, import.meta.url).href;
+    };
+
+    // Función para cargar imágenes de jugadores
+    const getImageUrl = (imgName) => {
+        return new URL(
+            `../assets/Jugadores/Mediocampistas/${imgName}`,
+            import.meta.url
+        ).href;
+    };
+
     return (
         <Container>
             <Title>Mediocampistas</Title>
@@ -90,6 +103,9 @@ export function Mediocampistas() {
                         fecha={mediocampistaSeleccionado.jugo}
                         nombre={`${mediocampistaSeleccionado.nombre} ${mediocampistaSeleccionado.apellido}`}
                         detalle={mediocampistaSeleccionado.descripcion}
+                        habilidades={mediocampistaSeleccionado.habilidades}
+                        copasGanadas={mediocampistaSeleccionado.copasGanadas}
+                        getCopaUrl={getCopaUrl}
                     />
                     <CerrarDetalle onClick={cerrarDetalle} />
                 </DetalleWrapper>
@@ -97,13 +113,6 @@ export function Mediocampistas() {
         </Container>
     );
 }
-
-const getImageUrl = (imgName) => {
-    return new URL(
-        `../assets/Jugadores/Mediocampistas/${imgName}`,
-        import.meta.url
-    ).href;
-};
 
 // Estilos
 const Container = styled.div`

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { EscudoCamista } from "../components/Home/EscudoCamiseta";
 import leftImage1 from "../assets/Home/left1.png";
@@ -5,13 +6,60 @@ import rightImage1 from "../assets/Home/right1.jpg";
 import leftImage2 from "../assets/Home/left2.jpg";
 import rightImage2 from "../assets/Home/right2.jpg";
 
-export function Home({ sidebarOpen }) {
+export function Home({ sidebarOpen, visibleLinks, setVisibleLinks }) {
+  // Claves que deben coincidir exactamente con los labels del Sidebar
+  const allSidebarKeys = [
+    "LaBombonera",
+    "Arqueros",
+    "Defensores",
+    "Mediocampistas",
+    "Delanteros",
+    "Clima en Bs. As.",
+    "Bitacora",
+  ];
+
+  // Asegurarse de que visibleLinks tenga todas las claves necesarias
+  const normalizedLinks = allSidebarKeys.reduce((acc, key) => {
+    acc[key] = visibleLinks[key] ?? true;
+    return acc;
+  }, {});
+
+  // Manejador del checkbox
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setVisibleLinks((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
   return (
     <Wrapper>
       <Container $sidebarOpen={sidebarOpen}>
         <EscudoCamista leftSrc={leftImage1} rightSrc={rightImage1} />
         <Title>Historia de Boca Juniors</Title>
         <EscudoCamista leftSrc={leftImage2} rightSrc={rightImage2} />
+
+        <ControlPanel>
+          <h2>Mostrar / Ocultar botones del Sidebar</h2>
+          <CheckboxesContainer>
+            <label>
+              <input type="checkbox" checked disabled />
+              Home
+            </label>
+            {allSidebarKeys.map((key) => (
+              <label key={key}>
+                <input
+                  type="checkbox"
+                  name={key}
+                  checked={normalizedLinks[key]}
+                  onChange={handleCheckboxChange}
+                />
+                {key}
+              </label>
+            ))}
+          </CheckboxesContainer>
+        </ControlPanel>
       </Container>
     </Wrapper>
   );
@@ -22,13 +70,12 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  
+
   @media (max-width: 480px) {
-      margin-left: 10%;
+    margin-left: 10%;
   }
 `;
 
-// Container se ajusta según si el sidebar está abierto
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,7 +85,6 @@ const Container = styled.div`
   max-width: 100%;
   box-sizing: border-box;
   min-height: 100vh;
-
   padding: ${(props) => (props.$sidebarOpen ? "3rem 1rem" : "2rem 1rem")};
   transition: padding 0.3s ease;
 `;
@@ -53,5 +99,42 @@ const Title = styled.h1`
 
   @media (min-width: 1025px) {
     font-size: 3rem;
+  }
+`;
+
+const ControlPanel = styled.div`
+  background-color: #0b2545;
+  color: white;
+  padding: 1.5rem 2rem;
+  margin-top: 3rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+`;
+
+const CheckboxesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    input {
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+
+    input:disabled {
+      cursor: not-allowed;
+    }
   }
 `;

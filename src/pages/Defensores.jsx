@@ -80,6 +80,8 @@ export function Defensores() {
                         fecha={defensorSeleccionado.jugo}
                         nombre={`${defensorSeleccionado.nombre} ${defensorSeleccionado.apellido}`}
                         detalle={defensorSeleccionado.descripcion}
+                        copasGanadas={defensorSeleccionado.copasGanadas || []}
+                        habilidades={defensorSeleccionado.habilidades || {}}
                     />
                     <CerrarDetalle onClick={cerrarDetalle} />
                 </DetalleWrapper>

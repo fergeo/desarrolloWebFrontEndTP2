@@ -13,14 +13,33 @@ function App() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Estado para controlar la visibilidad de los botones del sidebar
+  const [visibleLinks, setVisibleLinks] = useState({
+    Home: true,
+    LaBombonera: true,
+    Arqueros: true,
+    Defensores: true,
+    Mediocampistas: true,
+    Delanteros: true,
+    Clima: true,
+    Bitacora: true,
+  });
+
   return (
     <ThemeContext.Provider value={{ setTheme, theme }}>
       <ThemeProvider theme={themeStyle}>
         <BrowserRouter>
           <Container>
-            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            <Sidebar
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+              visibleLinks={visibleLinks}
+            />
             <Content $sidebarOpen={sidebarOpen}>
-              <MyRoutes />
+              <MyRoutes
+                visibleLinks={visibleLinks}
+                setVisibleLinks={setVisibleLinks}
+              />
             </Content>
           </Container>
         </BrowserRouter>

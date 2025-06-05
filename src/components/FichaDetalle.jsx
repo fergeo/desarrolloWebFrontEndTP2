@@ -1,7 +1,25 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export function FichaDetalle({ imgsrc, fecha, nombre, detalle, leyenda }) {
+const MAPA_ICONOS_COPAS = {
+    "Copa Intercontinental": "https://cdn-icons-png.flaticon.com/512/2583/2583279.png",
+    "Copa Argentina": "https://cdn-icons-png.flaticon.com/512/1822/1822921.png",
+    "Copa Libertadores": "https://cdn-icons-png.flaticon.com/512/2583/2583281.png",
+    "Supercopa Sudamericana": "https://cdn-icons-png.flaticon.com/512/2583/2583283.png",
+    "Torneo Apertura": "https://cdn-icons-png.flaticon.com/512/2583/2583285.png",
+    "Recopa Sudamericana": "https://cdn-icons-png.flaticon.com/512/2583/2583287.png",
+    "Torneo Clausura": "https://cdn-icons-png.flaticon.com/512/2583/2583289.png",
+};
+
+export function FichaDetalle({
+    imgsrc,
+    fecha,
+    nombre,
+    detalle,
+    leyenda,
+    copasGanadas = [],
+    habilidades = {}
+}) {
     return (
         <Card>
             <ImageWrapper>
@@ -11,12 +29,59 @@ export function FichaDetalle({ imgsrc, fecha, nombre, detalle, leyenda }) {
                 <Fecha>{leyenda}{fecha}</Fecha>
                 <Nombre>{nombre}</Nombre>
                 <Detalle>{detalle}</Detalle>
+
+                <Subtitulo>Copas ganadas:</Subtitulo>
+                {copasGanadas.length > 0 ? (
+                    <IconRow>
+                        {copasGanadas.map((copaNombre, index) => {
+                            const urlIcono = MAPA_ICONOS_COPAS[copaNombre];
+                            return urlIcono ? (
+                                <CopaIcon
+                                    key={index}
+                                    src={urlIcono}
+                                    alt={`Copa ${copaNombre}`}
+                                    title={copaNombre}
+                                />
+                            ) : null; // Ignorar si no hay icono
+                        })}
+                    </IconRow>
+                ) : (
+                    <TextoSecundario>No ganó copas</TextoSecundario>
+                )}
+
+                <Subtitulo>Habilidades:</Subtitulo>
+                <Lista>
+                    <li>
+                        Stamina
+                        <BarContainer>
+                            <AnimatedBar percent={habilidades.stamina ?? 0} />
+                        </BarContainer>
+                    </li>
+                    <li>
+                        Velocidad
+                        <BarContainer>
+                            <AnimatedBar percent={habilidades.velocidad ?? 0} />
+                        </BarContainer>
+                    </li>
+                    <li>
+                        Precisión
+                        <BarContainer>
+                            <AnimatedBar percent={habilidades.precision ?? 0} />
+                        </BarContainer>
+                    </li>
+                </Lista>
             </Content>
         </Card>
     );
 }
 
-// Styled Components
+// Animaciones y estilos (igual que antes)
+
+const pulse = (percent) => keyframes`
+    0% { width: 0%; }
+    50% { width: ${percent}%; }
+    100% { width: 0%; }
+`;
 
 const Card = styled.div`
     border-radius: 8px;
@@ -78,4 +143,56 @@ const Detalle = styled.p`
     font-size: 1.4rem;
     color: #ccc;
     margin: 0;
+`;
+
+const Subtitulo = styled.h3`
+    color: #fff;
+    margin-top: 20px;
+    font-size: 1.4rem;
+`;
+
+const Lista = styled.ul`
+    padding-left: 20px;
+    color: #ccc;
+
+    li {
+        margin-bottom: 12px;
+    }
+`;
+
+const TextoSecundario = styled.p`
+    color: #aaa;
+    font-style: italic;
+`;
+
+const BarContainer = styled.div`
+    width: 100%;
+    height: 12px;
+    background-color: #1c1c1c;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+    margin-bottom: 10px;
+`;
+
+const AnimatedBar = styled.div`
+    height: 100%;
+    background: linear-gradient(90deg, #00bcd4, #0088cc);
+    border-radius: 6px;
+    animation: ${({ percent }) => pulse(percent)} 3s ease-in-out infinite;
+`;
+
+const IconRow = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+`;
+
+const CopaIcon = styled.img`
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ccc;
 `;

@@ -11,7 +11,7 @@ export function Arqueros() {
     const [datos, setDatos] = useState([]);
     const [detalleAbierto, setDetalleAbierto] = useState(null);
     const [filtro, setFiltro] = useState("");
-    const [criterio, setCriterio] = useState("nombre"); // "nombre" o "fecha"
+    const [criterio, setCriterio] = useState("nombre");
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
@@ -24,16 +24,13 @@ export function Arqueros() {
 
     const datosFiltrados = datos.filter((jugador) => {
         const filtroLower = filtro.toLowerCase();
-
         if (criterio === "nombre") {
             const nombreCompleto = `${jugador.nombre} ${jugador.apellido}`.toLowerCase();
             return nombreCompleto.includes(filtroLower);
         }
-
         if (criterio === "fecha") {
             return jugador.jugo.toLowerCase().includes(filtroLower);
         }
-
         return true;
     });
 
@@ -79,6 +76,9 @@ export function Arqueros() {
                         fecha={arqueroSeleccionado.jugo}
                         nombre={`${arqueroSeleccionado.nombre} ${arqueroSeleccionado.apellido}`}
                         detalle={arqueroSeleccionado.descripcion}
+                        copasGanadas={arqueroSeleccionado.copasGanadas}
+                        habilidades={arqueroSeleccionado.habilidades}
+                        getCopaUrl={getCopaUrl}
                     />
                     <CerrarButton onClick={cerrarDetalle}>Cerrar</CerrarButton>
                 </DetalleWrapper>
@@ -90,6 +90,10 @@ export function Arqueros() {
 // Utils
 const getImageUrl = (imgName) => {
     return new URL(`../assets/Jugadores/Arqueros/${imgName}`, import.meta.url).href;
+};
+
+const getCopaUrl = (copa) => {
+    return new URL(`../assets/copas/${copa}`, import.meta.url).href;
 };
 
 // Styled Components
