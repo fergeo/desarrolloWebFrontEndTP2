@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-export function Card({ imgsrc, descripcion_breve, leyenda, fecha, onVerDetalle }) {
+export function Card({ imgsrc, descripcion_breve, leyenda, fecha, onVerDetalle, onImageClick }) {
     return (
         <Section>
             <CardContainer>
-                <ImageWrapper>
+                <ImageWrapper onClick={onImageClick}>
                     <CardImage src={imgsrc} alt="Imagen" />
                 </ImageWrapper>
                 <CardBody>
@@ -58,7 +58,7 @@ const CardContainer = styled.div`
     }
 
     &:hover img {
-        transform: scale(1.2); /* Agrandado del 20% */
+        transform: scale(1.2);
     }
 
     @media (max-width: 1024px) {
@@ -78,6 +78,7 @@ const CardContainer = styled.div`
 
 const ImageWrapper = styled.div`
     overflow: hidden;
+    cursor: pointer;
 `;
 
 const CardImage = styled.img`

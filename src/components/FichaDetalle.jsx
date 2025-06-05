@@ -18,64 +18,75 @@ export function FichaDetalle({
     detalle,
     leyenda,
     copasGanadas = [],
-    habilidades = {}
+    habilidades = {},
+    mostrarExtras = true,
+    onImageClick = null
 }) {
     return (
         <Card>
             <ImageWrapper>
-                <Image src={imgsrc} alt={nombre} />
+                <Image
+                    src={imgsrc}
+                    alt={nombre}
+                    onClick={onImageClick}
+                    style={{ cursor: onImageClick ? 'pointer' : 'default' }}
+                />
             </ImageWrapper>
             <Content>
                 <Fecha>{leyenda}{fecha}</Fecha>
                 <Nombre>{nombre}</Nombre>
                 <Detalle>{detalle}</Detalle>
 
-                <Subtitulo>Copas ganadas:</Subtitulo>
-                {copasGanadas.length > 0 ? (
-                    <IconRow>
-                        {copasGanadas.map((copaNombre, index) => {
-                            const urlIcono = MAPA_ICONOS_COPAS[copaNombre];
-                            return urlIcono ? (
-                                <CopaIcon
-                                    key={index}
-                                    src={urlIcono}
-                                    alt={`Copa ${copaNombre}`}
-                                    title={copaNombre}
-                                />
-                            ) : null; // Ignorar si no hay icono
-                        })}
-                    </IconRow>
-                ) : (
-                    <TextoSecundario>No ganó copas</TextoSecundario>
-                )}
+                {mostrarExtras && (
+                    <>
+                        <Subtitulo>Copas ganadas:</Subtitulo>
+                        {copasGanadas.length > 0 ? (
+                            <IconRow>
+                                {copasGanadas.map((copaNombre, index) => {
+                                    const urlIcono = MAPA_ICONOS_COPAS[copaNombre];
+                                    return urlIcono ? (
+                                        <CopaIcon
+                                            key={index}
+                                            src={urlIcono}
+                                            alt={`Copa ${copaNombre}`}
+                                            title={copaNombre}
+                                        />
+                                    ) : null;
+                                })}
+                            </IconRow>
+                        ) : (
+                            <TextoSecundario>No ganó copas</TextoSecundario>
+                        )}
 
-                <Subtitulo>Habilidades:</Subtitulo>
-                <Lista>
-                    <li>
-                        Stamina
-                        <BarContainer>
-                            <AnimatedBar percent={habilidades.stamina ?? 0} />
-                        </BarContainer>
-                    </li>
-                    <li>
-                        Velocidad
-                        <BarContainer>
-                            <AnimatedBar percent={habilidades.velocidad ?? 0} />
-                        </BarContainer>
-                    </li>
-                    <li>
-                        Precisión
-                        <BarContainer>
-                            <AnimatedBar percent={habilidades.precision ?? 0} />
-                        </BarContainer>
-                    </li>
-                </Lista>
+                        <Subtitulo>Habilidades:</Subtitulo>
+                        <Lista>
+                            <li>
+                                Stamina
+                                <BarContainer>
+                                    <AnimatedBar percent={habilidades.stamina ?? 0} />
+                                </BarContainer>
+                            </li>
+                            <li>
+                                Velocidad
+                                <BarContainer>
+                                    <AnimatedBar percent={habilidades.velocidad ?? 0} />
+                                </BarContainer>
+                            </li>
+                            <li>
+                                Precisión
+                                <BarContainer>
+                                    <AnimatedBar percent={habilidades.precision ?? 0} />
+                                </BarContainer>
+                            </li>
+                        </Lista>
+                    </>
+                )}
             </Content>
         </Card>
     );
 }
 
-// Animaciones y estilos (igual que antes)
+// Animaciones y estilos
 
 const pulse = (percent) => keyframes`
     0% { width: 0%; }

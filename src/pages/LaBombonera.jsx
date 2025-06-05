@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import AOS from 'aos'; 
-import 'aos/dist/aos.css'; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { Card } from "../components/Card";
 import { FichaDetalle } from "../components/FichaDetalle";
@@ -11,7 +11,7 @@ import datosJSON from "../assets/data/laBombonera.json";
 export function LaBombonera() {
     const [datos, setDatos] = useState([]);
     const [detalleAbierto, setDetalleAbierto] = useState(null);
-    const [lightboxIndex, setLightboxIndex] = useState(null); // índice para lightbox
+    const [lightboxIndex, setLightboxIndex] = useState(null);
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
@@ -22,29 +22,26 @@ export function LaBombonera() {
         setDetalleAbierto(detalleAbierto === id ? null : id);
     };
 
-    const itemSeleccionado = datos.find((item) => item.id === detalleAbierto);
-
-    // Abrir lightbox con la imagen del índice dado
     const abrirLightbox = (index) => {
         setLightboxIndex(index);
     };
 
-    // Navegar lightbox
     const siguienteImagen = () => {
         setLightboxIndex((prev) => (prev + 1) % datos.length);
     };
+
     const anteriorImagen = () => {
         setLightboxIndex((prev) => (prev - 1 + datos.length) % datos.length);
     };
 
-    // Cerrar lightbox
     const cerrarLightbox = () => setLightboxIndex(null);
+
+    const itemSeleccionado = datos.find((item) => item.id === detalleAbierto);
 
     return (
         <Container>
             <Title>La Bombonera</Title>
 
-            {/* Mostrar lista de cards sólo si NO hay detalle abierto */}
             {!detalleAbierto && (
                 <CardsWrapper>
                     {datos.map((item, index) => (
@@ -55,13 +52,12 @@ export function LaBombonera() {
                             descripcion_breve={item.descripcion_breve}
                             fecha={item.fecha}
                             onVerDetalle={() => toggleDetalle(item.id)}
-                            onImageClick={() => abrirLightbox(index)} // abrir lightbox al click imagen
+                            onImageClick={() => abrirLightbox(index)}
                         />
                     ))}
                 </CardsWrapper>
             )}
 
-            {/* Mostrar detalle sólo si hay seleccionado */}
             {itemSeleccionado && (
                 <DetalleWrapper>
                     <FichaDetalle
@@ -70,25 +66,28 @@ export function LaBombonera() {
                         fecha={itemSeleccionado.fecha}
                         nombre={itemSeleccionado.descripcion_breve || "Detalle"}
                         detalle={itemSeleccionado.descripcion_larga}
-                        onImageClick={() => abrirLightbox(datos.findIndex(d => d.id === itemSeleccionado.id))} 
-                        // NO pasar habilidades, copas ni mostrarExtras para que no se muestren
+                        copasGanadas={itemSeleccionado.copasGanadas}
+                        habilidades={itemSeleccionado.habilidades}
                     />
                     <CerrarDetalle onClick={() => setDetalleAbierto(null)} />
                 </DetalleWrapper>
             )}
 
-            {/* Lightbox */}
             {lightboxIndex !== null && (
                 <LightboxOverlay onClick={cerrarLightbox}>
                     <LightboxContent onClick={e => e.stopPropagation()}>
                         <CloseButton onClick={cerrarLightbox}>&times;</CloseButton>
                         <NavButton left onClick={anteriorImagen}>&lsaquo;</NavButton>
-                        <LightboxImage
-                            src={getImageUrl(datos[lightboxIndex].imgsrc)}
-                            alt={datos[lightboxIndex].descripcion_breve}
+                        <FichaDetalle
+                            imgsrc={getImageUrl(datos[lightboxIndex].imgsrc)}
+                            leyenda={"Fecha: "}
+                            fecha={datos[lightboxIndex].fecha}
+                            nombre={datos[lightboxIndex].descripcion_breve}
+                            detalle={datos[lightboxIndex].descripcion_larga}
+                            copasGanadas={datos[lightboxIndex].copasGanadas}
+                            habilidades={datos[lightboxIndex].habilidades}
                         />
                         <NavButton right onClick={siguienteImagen}>&rsaquo;</NavButton>
-                        <Caption>{datos[lightboxIndex].descripcion_breve} - {datos[lightboxIndex].fecha}</Caption>
                     </LightboxContent>
                 </LightboxOverlay>
             )}
@@ -100,7 +99,6 @@ const getImageUrl = (imgName) => {
     return new URL(`../assets/LaBombonera/${imgName}`, import.meta.url).href;
 };
 
-// Styled Components (sin cambios)
 const Container = styled.div`
     text-align: center;
     padding: 2rem;
@@ -160,7 +158,6 @@ const DetalleWrapper = styled.div`
     }
 `;
 
-// Lightbox styles
 const LightboxOverlay = styled.div`
     position: fixed;
     top: 0;
@@ -181,13 +178,6 @@ const LightboxContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
-
-const LightboxImage = styled.img`
-    max-width: 100%;
-    max-height: 80vh;
-    border-radius: 8px;
-    object-fit: contain;
 `;
 
 const CloseButton = styled.button`
@@ -219,11 +209,4 @@ const NavButton = styled.button`
     &:hover {
         opacity: 1;
     }
-`;
-
-const Caption = styled.div`
-    margin-top: 1rem;
-    color: white;
-    font-size: 1.2rem;
-    text-align: center;
 `;
