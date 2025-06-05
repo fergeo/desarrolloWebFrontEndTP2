@@ -10,36 +10,35 @@ import "slick-carousel/slick/slick-theme.css";
 export function ImageCarousel() {
   const navigate = useNavigate();
 
-  // Función para obtener imagen según tipo
-  const getImageUrl = (imgName, type) => {
-    switch (type.toLowerCase()) {
-      case "bombonera":
-        return new URL(`../assets/LaBombonera/${imgName}`, import.meta.url).href;
-      case "arquero":
-        return new URL(`../assets/Jugadores/Arqueros/${imgName}`, import.meta.url).href;
-      case "defensor":
-        return new URL(`../assets/Jugadores/Defensores/${imgName}`, import.meta.url).href;
-      case "delantero":
-        return new URL(`../assets/Jugadores/Delanteros/${imgName}`, import.meta.url).href;
-      case "mediocampista":
-        return new URL(`../assets/Jugadores/Mediocampistas/${imgName}`, import.meta.url).href;
-      default:
-        console.warn(`Posición desconocida: ${type}`);
-        return ""; // o una imagen por defecto
+  // Mapeo de posiciones para pluralizar correctamente y para formar rutas + paths
+  const posicionMap = {
+    arquero: "arqueros",
+    defensor: "defensores",
+    delantero: "delanteros",
+    mediocampista: "mediocampistas",
+  };
+
+  const getImageUrl = (imgName, posicion) => {
+    const carpeta = posicionMap[posicion.toLowerCase()];
+    if (!carpeta) {
+      console.warn(`Posición desconocida: ${posicion}`);
+      return "";
     }
+    return new URL(`../assets/Jugadores/${carpeta.charAt(0).toUpperCase() + carpeta.slice(1)}/${imgName}`, import.meta.url).href;
   };
 
   const combinedImages = [
     ...bomboneraData.map((item) => ({
       type: "bombonera",
-      img: getImageUrl(item.imgsrc, "bombonera"),
+      img: new URL(`../assets/LaBombonera/${item.imgsrc}`, import.meta.url).href,
     })),
     ...jugadoresData.map((jugador) => {
-      const posicion = jugador.posicion.toLowerCase(); // Ej: "defensores"
+      const posicionSingular = jugador.posicion.toLowerCase(); // Ej: 'defensor'
+      const posicionRuta = posicionMap[posicionSingular]; // Ej: 'defensores'
       return {
         type: "jugador",
-        img: getImageUrl(jugador.imagenSrc, posicion),
-        posicion,
+        img: getImageUrl(jugador.imagenSrc, posicionSingular),
+        posicion: posicionRuta,
       };
     }),
   ];
@@ -103,12 +102,12 @@ const CarouselWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 60%; /* achica la imagen un 40% */
-  height: 90px; /* alto fijo */
-  object-fit: cover; /* recorta sin deformar */
+  width: 60%;
+  height: 90px;
+  object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
-  margin: 0 auto; /* centrar dentro del slide */
+  margin: 0 auto;
   display: block;
   transition: transform 0.3s ease-in-out;
 
@@ -116,4 +115,3 @@ const Image = styled.img`
     transform: scale(1.1);
   }
 `;
-
