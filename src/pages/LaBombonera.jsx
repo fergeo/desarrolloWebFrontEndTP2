@@ -18,6 +18,23 @@ export function LaBombonera() {
         setDatos(datosJSON);
     }, []);
 
+    // Nuevo useEffect para cerrar lightbox con Escape
+    useEffect(() => {
+        if (lightboxIndex !== null) {
+            const handleKeyDown = (e) => {
+                if (e.key === "Escape") {
+                    cerrarLightbox();
+                }
+            };
+
+            window.addEventListener("keydown", handleKeyDown);
+
+            return () => {
+                window.removeEventListener("keydown", handleKeyDown);
+            };
+        }
+    }, [lightboxIndex]);
+
     const toggleDetalle = (id) => {
         setDetalleAbierto(detalleAbierto === id ? null : id);
     };

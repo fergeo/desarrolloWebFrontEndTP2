@@ -15,6 +15,7 @@ export function Mediocampistas() {
     const [detalleAbierto, setDetalleAbierto] = useState(null);
     const [filtro, setFiltro] = useState("");
     const [criterio, setCriterio] = useState("nombre");
+    const [lightboxIndex, setLightboxIndex] = useState(null);
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
@@ -25,12 +26,28 @@ export function Mediocampistas() {
         setDatos(mediocampistas);
     }, []);
 
-    const toggleDetalle = (id) => {
-        setDetalleAbierto(id);
+    useEffect(() => {
+        if (lightboxIndex !== null) {
+            const handleKeyDown = (e) => {
+                if (e.key === "Escape") cerrarLightbox();
+            };
+            window.addEventListener("keydown", handleKeyDown);
+            return () => window.removeEventListener("keydown", handleKeyDown);
+        }
+    }, [lightboxIndex]);
+
+    const toggleDetalle = (id) => setDetalleAbierto(id);
+    const cerrarDetalle = () => setDetalleAbierto(null);
+
+    const abrirLightbox = (index) => setLightboxIndex(index);
+    const cerrarLightbox = () => setLightboxIndex(null);
+
+    const siguienteImagen = () => {
+        setLightboxIndex((prev) => (prev + 1) % datosFiltrados.length);
     };
 
-    const cerrarDetalle = () => {
-        setDetalleAbierto(null);
+    const anteriorImagen = () => {
+        setLightboxIndex((prev) => (prev - 1 + datosFiltrados.length) % datosFiltrados.length);
     };
 
     const datosFiltrados = datos.filter((jugador) => {
@@ -48,21 +65,14 @@ export function Mediocampistas() {
         return true;
     });
 
-    const mediocampistaSeleccionado = datos.find(
-        (j) => j.id === detalleAbierto
-    );
+    const mediocampistaSeleccionado = datos.find(j => j.id === detalleAbierto);
 
-    // Función para cargar imágenes de copas (pasar a FichaDetalle)
     const getCopaUrl = (copa) => {
         return new URL(`../assets/copas/${copa}`, import.meta.url).href;
     };
 
-    // Función para cargar imágenes de jugadores
     const getImageUrl = (imgName) => {
-        return new URL(
-            `../assets/Jugadores/Mediocampistas/${imgName}`,
-            import.meta.url
-        ).href;
+        return new URL(`../assets/Jugadores/Mediocampistas/${imgName}`, import.meta.url).href;
     };
 
     return (
@@ -79,7 +89,7 @@ export function Mediocampistas() {
             {!detalleAbierto && (
                 <CardsWrapper data-aos="zoom-in">
                     {datosFiltrados.length > 0 ? (
-                        datosFiltrados.map((item) => (
+                        datosFiltrados.map((item, index) => (
                             <Card
                                 key={item.id}
                                 imgsrc={getImageUrl(item.imagenSrc)}
@@ -87,6 +97,7 @@ export function Mediocampistas() {
                                 fecha={item.jugo}
                                 descripcion_breve={`${item.nombre} ${item.apellido}`}
                                 onVerDetalle={() => toggleDetalle(item.id)}
+                                onImageClick={() => abrirLightbox(index)}
                             />
                         ))
                     ) : (
@@ -106,9 +117,34 @@ export function Mediocampistas() {
                         habilidades={mediocampistaSeleccionado.habilidades}
                         copasGanadas={mediocampistaSeleccionado.copasGanadas}
                         getCopaUrl={getCopaUrl}
+                        onClickImagen={() =>
+                            abrirLightbox(
+                                datosFiltrados.findIndex(j => j.id === detalleAbierto)
+                            )
+                        }
                     />
                     <CerrarDetalle onClick={cerrarDetalle} />
                 </DetalleWrapper>
+            )}
+
+            {lightboxIndex !== null && (
+                <LightboxOverlay onClick={cerrarLightbox}>
+                    <LightboxContent onClick={(e) => e.stopPropagation()}>
+                        <CloseButton onClick={cerrarLightbox}>&times;</CloseButton>
+                        <NavButton left onClick={anteriorImagen}>&lsaquo;</NavButton>
+                        <FichaDetalle
+                            imgsrc={getImageUrl(datosFiltrados[lightboxIndex].imagenSrc)}
+                            leyenda={"Jugó en: "}
+                            fecha={datosFiltrados[lightboxIndex].jugo}
+                            nombre={`${datosFiltrados[lightboxIndex].nombre} ${datosFiltrados[lightboxIndex].apellido}`}
+                            detalle={datosFiltrados[lightboxIndex].descripcion}
+                            habilidades={datosFiltrados[lightboxIndex].habilidades}
+                            copasGanadas={datosFiltrados[lightboxIndex].copasGanadas}
+                            getCopaUrl={getCopaUrl}
+                        />
+                        <NavButton right onClick={siguienteImagen}>&rsaquo;</NavButton>
+                    </LightboxContent>
+                </LightboxOverlay>
             )}
         </Container>
     );
@@ -165,4 +201,57 @@ const NoResults = styled.p`
     color: white;
     font-size: 1.2rem;
     margin-top: 2rem;
+`;
+
+const LightboxOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+`;
+
+const LightboxContent = styled.div`
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const CloseButton = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 3rem;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+`;
+
+const NavButton = styled.button`
+    position: absolute;
+    top: 50%;
+    ${({ left }) => left ? 'left: 15px;' : 'right: 15px;'}
+    transform: translateY(-50%);
+    font-size: 3rem;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 10px;
+    opacity: 0.8;
+
+    &:hover {
+        opacity: 1;
+    }
 `;
