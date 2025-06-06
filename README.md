@@ -57,7 +57,9 @@
 ○ Carrusel responsive que muestre proyectos ficticios o reales del equipo.
 ○ Incluir controles de navegación manual (flechas, dots).
   - [X] Se agrego un carrousel que tiene imagenes de la bombonera y de todos los jugadores, que si se le da click a uno del aca del carrousel lleva a la seccion correspondiente.
-        
+  - Día 3
 
+        
 ● Seccion ocultar o mostrar boton del Sidebar en Home
  - [X] Se realizo una sección con los nombres de cada seeción que segun si se checkean o no se mostrara el boton o no segun corresponda en el Sidebar.
+ - Día 3
