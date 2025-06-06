@@ -22,6 +22,9 @@ export function FichaDetalle({
     mostrarExtras = true,
     onImageClick = null
 }) {
+    const mostrarCopas = mostrarExtras && Array.isArray(copasGanadas);
+    const mostrarHabilidades = mostrarExtras && habilidades && typeof habilidades === 'object' && !Array.isArray(habilidades);
+
     return (
         <Card>
             <ImageWrapper>
@@ -37,7 +40,7 @@ export function FichaDetalle({
                 <Nombre>{nombre}</Nombre>
                 <Detalle>{detalle}</Detalle>
 
-                {mostrarExtras && (
+                {mostrarCopas && (
                     <>
                         <Subtitulo>Copas ganadas:</Subtitulo>
                         {copasGanadas.length > 0 ? (
@@ -57,7 +60,11 @@ export function FichaDetalle({
                         ) : (
                             <TextoSecundario>No ganó copas</TextoSecundario>
                         )}
+                    </>
+                )}
 
+                {mostrarHabilidades && (
+                    <>
                         <Subtitulo>Habilidades:</Subtitulo>
                         <Lista>
                             <li>

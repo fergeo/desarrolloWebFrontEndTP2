@@ -18,7 +18,6 @@ export function LaBombonera() {
         setDatos(datosJSON);
     }, []);
 
-    // Nuevo useEffect para cerrar lightbox con Escape
     useEffect(() => {
         if (lightboxIndex !== null) {
             const handleKeyDown = (e) => {
@@ -26,9 +25,7 @@ export function LaBombonera() {
                     cerrarLightbox();
                 }
             };
-
             window.addEventListener("keydown", handleKeyDown);
-
             return () => {
                 window.removeEventListener("keydown", handleKeyDown);
             };
@@ -83,8 +80,8 @@ export function LaBombonera() {
                         fecha={itemSeleccionado.fecha}
                         nombre={itemSeleccionado.descripcion_breve || "Detalle"}
                         detalle={itemSeleccionado.descripcion_larga}
-                        copasGanadas={itemSeleccionado.copasGanadas}
-                        habilidades={itemSeleccionado.habilidades}
+                        copasGanadas={false}
+                        habilidades={false}
                     />
                     <CerrarDetalle onClick={() => setDetalleAbierto(null)} />
                 </DetalleWrapper>
@@ -101,8 +98,8 @@ export function LaBombonera() {
                             fecha={datos[lightboxIndex].fecha}
                             nombre={datos[lightboxIndex].descripcion_breve}
                             detalle={datos[lightboxIndex].descripcion_larga}
-                            copasGanadas={datos[lightboxIndex].copasGanadas}
-                            habilidades={datos[lightboxIndex].habilidades}
+                            copasGanadas={false}
+                            habilidades={false}
                         />
                         <NavButton right onClick={siguienteImagen}>&rsaquo;</NavButton>
                     </LightboxContent>
