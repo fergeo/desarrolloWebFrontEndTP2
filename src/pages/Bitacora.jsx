@@ -2,26 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { DiaDetalle } from "../components/Bitacora/DiaDetalle";
-import { FiltrarBitacora } from "../components/Filtros/FiltrarBitacora"; // ✅ importar componente desde carpeta Filtros
+import { FiltrarBitacora } from "../components/Filtros/FiltrarBitacora";
 import bitacora from "../assets/data/bitacora.json";
 
 export function Bitacora() {
 	const [filtro, setFiltro] = useState("");
 	const [campo, setCampo] = useState("dia");
 
-	// Filtrado de datos con soporte para array en detalle
 	const bitacoraFiltrada = bitacora.filter((item) => {
 		const valor = item[campo];
 
 		if (Array.isArray(valor)) {
-			// Si es array (ej. detalle), unimos y convertimos a string para filtrar
 			const textoUnido = valor.join(" ").toLowerCase();
 			return textoUnido.includes(filtro.toLowerCase());
 		} else if (typeof valor === "string") {
-			// Si es string (ej. dia), filtrado normal
 			return valor.toLowerCase().includes(filtro.toLowerCase());
 		} else {
-			// Si no es ni string ni array, no mostrar
 			return false;
 		}
 	});
@@ -30,7 +26,6 @@ export function Bitacora() {
 		<PageContainer>
 			<Titulo>Bitácora de Desarrollo</Titulo>
 
-			{/* ✅ Filtro agregado */}
 			<FiltrarBitacora
 				filtro={filtro}
 				setFiltro={setFiltro}
@@ -49,7 +44,9 @@ export function Bitacora() {
 						delay: index * 0.2,
 					}}
 				>
-					<DiaDetalle titulo={dia.dia} detalle={dia.detalle} />
+					<DiaDetalleWrapper>
+						<DiaDetalle titulo={dia.dia} detalle={dia.detalle} />
+					</DiaDetalleWrapper>
 				</MotionDiaWrapper>
 			))}
 		</PageContainer>
@@ -59,11 +56,19 @@ export function Bitacora() {
 // Estilos
 const PageContainer = styled.div`
 	min-height: 100vh;
+	margin-left: 20%;
 	margin-right: 1rem;
-	margin-left: 6rem;
+	padding-right: 1rem;
+	padding-left: 1rem;
+
+	@media (max-width: 768px) {
+		margin-left: 4rem;
+		margin-right: 1rem;
+	}
 
 	@media (max-width: 480px) {
-		margin-left: 4.2rem;
+		margin-left: 3rem;
+		padding-left: 0.5rem;
 	}
 `;
 
@@ -76,11 +81,20 @@ const Titulo = styled.h1`
 	@media (max-width: 480px) {
 		margin-top: 1rem;
 		font-size: 2.5rem;
+		word-wrap: break-word;
 	}
 `;
 
 const MotionDiaWrapper = styled(motion.div)`
 	margin-bottom: 2rem;
+	width: 100%;
+`;
+
+const DiaDetalleWrapper = styled.div`
+	width: 100%;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
 
 	@media (max-width: 480px) {
 		padding: 0 1rem;
