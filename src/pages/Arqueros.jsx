@@ -153,6 +153,11 @@ const getCopaUrl = (copa) =>
 const Container = styled.div`
   text-align: center;
   margin-top: 2rem;
+
+  @media (max-width: 480px) {
+    margin-left: 20%;
+    padding: 0;
+  }
 `;
 
 const Title = styled.h1`
